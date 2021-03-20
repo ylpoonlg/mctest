@@ -1,0 +1,18 @@
+.mobile-menu {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.mobile-item {
+    color: #fff;
+    font-size: 150%;
+    background: rgba(0, 0, 0, 0);
+    border: none;
+    height: 3.6rem;
+    width: 15rem;
+}
+.mobile-item:hover {
+    background: rgba(255, 255, 255, 0.3);
+}

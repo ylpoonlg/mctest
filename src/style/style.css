@@ -1,0 +1,14 @@
+/* FONTS */
+@import url('https://fonts.googleapis.com/css2?family=Recursive:wght@600;700&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Rubik', 'Roboto', 'Arial';
+}
+
+#root {
+    min-width: 20rem;
+}
