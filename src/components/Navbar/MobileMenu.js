@@ -10,6 +10,7 @@ function MobileMenu(props) {
             onClick={props.onClick}
             style={{
                 backgroundColor: colors.primary.main,
+                boxShadow: "#999 0 0 20px",
         }}>
             <button className="mobile-item" onClick={props.newTestClick}>
                 New Test

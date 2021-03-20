@@ -1,0 +1,14 @@
+.settings-item {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.settings-textfield {
+    max-width: 15rem;
+}
+
+.settings-switch {
+
+}

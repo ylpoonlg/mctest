@@ -9,6 +9,7 @@ import Navbar from './components/Navbar/Navbar';
 import TestPage from './components/TestPage/TestPage';
 import LoginPage from './components/LoginPage/LoginPage';
 import AboutPage from './components/AboutPage/AboutPage';
+import HelpPage from './components/HelpPage/HelpPage';
 
 // Styles
 import './style/style.css'
@@ -21,14 +22,11 @@ function App() {
 	<ThemeProvider theme={theme}>
 		<HashRouter history={history} >
             <Navbar />
-            <Route exact path="/" component={HomePage}>
-			</Route>
-			<Route path="/test" component={TestPage}>
-			</Route>
-			<Route path="/login" component={LoginPage}>
-			</Route>
-            <Route path="/about" component={AboutPage}>
-			</Route>
+            <Route exact path="/" component={HomePage}></Route>
+			<Route path="/test" component={TestPage}></Route>
+			<Route path="/login" component={LoginPage}></Route>
+            <Route path="/about" component={AboutPage}></Route>
+			<Route path="/help" component={HelpPage}></Route>
 		</HashRouter>
 	</ThemeProvider>
     );

@@ -2,13 +2,33 @@
 @import url('https://fonts.googleapis.com/css2?family=Recursive:wght@600;700&display=swap');
 @import url('https://fonts.googleapis.com/css?family=Roboto');
 @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
 
 * {
     margin: 0;
     padding: 0;
     font-family: 'Rubik', 'Roboto', 'Arial';
+    outline: none;
 }
 
 #root {
     min-width: 20rem;
+}
+
+.control-btn {
+    background: none;
+    border: none;
+    color: #555;
+}
+.control-btn:hover {
+    color: #999;
+    cursor: pointer;
+}
+
+.section {
+    max-width: 40rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    margin: auto;
+    text-align: left;
 }

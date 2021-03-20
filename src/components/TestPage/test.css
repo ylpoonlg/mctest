@@ -1,0 +1,22 @@
+#answer-sheet {
+    margin-top: 1rem;
+}
+
+.choices {
+    min-height: 10rem;
+    align-items: center;
+    margin-top: 4rem;
+    margin-bottom: 6rem;
+}
+
+.choice {
+    width: 10rem;
+    height: 4rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+#finish-btn {
+    width: 6rem;
+    color: #fff;
+}

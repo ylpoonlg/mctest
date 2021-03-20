@@ -3,11 +3,13 @@ import { Switch, Button, Grid, createMuiTheme, makeStyles, TextField, Typography
 import { useHistory } from "react-router";
 import { IoMdArrowDropdown, IoMdArrowDropup } from 'react-icons/io';
 
+// Components
 import Content from "../Layout/Content";
-
 import McSettings from "./settings";
+
+// Styles
 import theme from '../../theme/theme';
-import { SettingsSystemDaydreamOutlined } from '@material-ui/icons';
+import './settings.css';
 
 const styles = makeStyles((theme) => ({
   startBtn: {
@@ -23,13 +25,7 @@ const styles = makeStyles((theme) => ({
     },
   },
   startBtnM: {
-    fontSize: "2rem",
-    background: 'linear-gradient(45deg, #ff5900 30%, #ffbb00 90%)',
     width:"6em",
-    height: "2em",
-    borderRadius: "2.5em",
-    color: theme.palette.text.light,
-    margin: theme.spacing(4),
   }
 }));
 
@@ -67,7 +63,22 @@ function HomePage() {
       setnumcError(true);
     } else {
       setnumcError(false);
-      sessionStorage.mc_numc = numChoice;
+
+      // Create New Test
+      let qdata = {
+        test_name: "test-123",
+        score: 0,
+        numq: 1,
+        numc: numChoice,
+        ttime: 0,
+        q1: {
+          ans: "",
+          time: 0,
+        },
+      }
+
+      resetStates();
+      sessionStorage.mc_qdata = JSON.stringify(qdata);
       history.replace("/test");
     }
   }
@@ -102,7 +113,7 @@ function HomePage() {
       <div>
       <Typography variant="h4" >Start New Test</Typography>
         <Button
-          className={isMobile?classes.startBtnM:classes.startBtn}
+          className={[classes.startBtn, isMobile?classes.startBtnM:null].join(' ')}
           onClick={startTestClick}
         >START</Button>
       </div>
@@ -119,20 +130,21 @@ function HomePage() {
             display: showDd ? "block" : "none",
             margin: "auto",
             width: "60%",
-            maxWidth: "20rem",
+            maxWidth: "30rem",
+            borderTop: "solid #999 1.2px",
           }}>
-            <FormGroup>
-              <TextField error={numcError} helperText={numcError?"Accepted range: 1-10.":""}
-                type="number" value={numChoice} onChange={inputNumChoice}
-                variant="outlined" label="Number of Choices" color="primary" />
-              <FormControlLabel
-                control={
-                  <Switch checked={autoNextQ} onChange={toggleAutoNextQ} name="checkedA" color="primary" />
-                }
-                label="Go to next question automatically"
-                labelPlacement="start"
-                />
-            </FormGroup>
+            <div>
+              <div className="settings-item settings-textfield">
+                <TextField type="number" value={numChoice} onChange={inputNumChoice}
+                  error={numcError} helperText={numcError?"Accepted range: 1-10.":""}
+                  variant="outlined" color="primary" label="Number of Choices"/>
+              </div>
+              <div className="settings-item settings-switch">
+                <FormControlLabel className="settings-item settings-switch"
+                  control={<Switch checked={autoNextQ} onChange={toggleAutoNextQ} color="primary" />}
+                  label="Go to next question automatically" labelPlacement="start"/>
+              </div>
+            </div>
           </div>
         </Collapse>
         
@@ -144,3 +156,14 @@ function HomePage() {
 
 
 export default HomePage;
+
+function resetStates() {
+  let nowtime = Date.now();
+  let testState = {
+      curq: 1,
+      ispaused: false,
+      sttime: nowtime,
+      patime: 0,
+  }
+  sessionStorage.mc_test_state = JSON.stringify(testState);
+}

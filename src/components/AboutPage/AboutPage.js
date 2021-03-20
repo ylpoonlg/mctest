@@ -1,7 +1,6 @@
 import { Container, Typography } from '@material-ui/core'
 import React from 'react'
 import Content from '../Layout/Content'
-import './about.css';
 
 function AboutPage() {
     return (
