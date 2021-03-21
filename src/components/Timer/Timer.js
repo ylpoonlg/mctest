@@ -28,7 +28,7 @@ class Timer extends React.Component {
     timerTick() {
         // save into sessionStorage
         let qdata = calQdata();
-        let curq = 1; // get curq from sessionStorage
+        let curq = JSON.parse(sessionStorage.mc_test_state).curq;
 
         let prev = this.state;
         prev.ttime = qdata["ttime"];
@@ -88,7 +88,7 @@ export default Timer
 function calQdata() {
     let testState = JSON.parse(sessionStorage.mc_test_state);
 
-    let curq = parseInt(testState.curq);
+    let curq = testState.curq;
     let qdata = JSON.parse(sessionStorage.mc_qdata);
     let nowtime = Date.now();
     if (testState.ispaused) {

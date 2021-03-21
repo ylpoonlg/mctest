@@ -7,6 +7,7 @@ import { ThemeProvider } from '@material-ui/core';
 import HomePage from './components/HomePage/HomePage';
 import Navbar from './components/Navbar/Navbar';
 import TestPage from './components/TestPage/TestPage';
+import ResultPage from './components/ResultPage/ResultPage';
 import LoginPage from './components/LoginPage/LoginPage';
 import AboutPage from './components/AboutPage/AboutPage';
 import HelpPage from './components/HelpPage/HelpPage';
@@ -24,6 +25,7 @@ function App() {
             <Navbar />
             <Route exact path="/" component={HomePage}></Route>
 			<Route path="/test" component={TestPage}></Route>
+            <Route path="/result" component={ResultPage}></Route>
 			<Route path="/login" component={LoginPage}></Route>
             <Route path="/about" component={AboutPage}></Route>
 			<Route path="/help" component={HelpPage}></Route>

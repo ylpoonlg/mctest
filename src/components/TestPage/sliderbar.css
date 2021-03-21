@@ -1,0 +1,26 @@
+.slider {
+    width: calc(100vw - 20rem);
+    min-width: 15rem;
+    max-width: 50rem;
+    margin: 0 1.5rem;
+}
+
+.nav-btn {
+    height: 2rem;
+    width: 3rem;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #eee;
+    border: solid #aaa 1px;
+    border-radius: 5px;
+}
+.nav-btn:hover {
+    cursor: pointer;
+    background: #f5f5f5;
+    box-shadow: #aaaabb 0 0 2px;
+}
+.nav-btn:active {
+    background: #fefefe;
+}
