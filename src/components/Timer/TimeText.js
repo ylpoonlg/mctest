@@ -1,6 +1,11 @@
 import { Typography, Grid } from '@material-ui/core';
 import React from 'react'
 
+/* PROPS
+    string dp: display decimal places? "true" | "false"
+    string label: display text before time
+    int time: time in ms
+*/
 function TimeText(props) {
 
     function addZero(num, digits) {

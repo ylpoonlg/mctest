@@ -38,7 +38,8 @@ function TestPage() {
             qdata["q"+curq].ans = c;
 
             // auto next q
-            setNextQ(nextQ+1);
+            if (JSON.parse(localStorage.mc_settings).auto_next_q)
+                setNextQ(nextQ+1);
         }
 
         sessionStorage.mc_qdata = JSON.stringify(qdata);
