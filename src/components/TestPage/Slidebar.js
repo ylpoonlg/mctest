@@ -1,4 +1,4 @@
-import { React, useState } from 'react';
+import { forwardRef, React, useEffect, useState } from 'react';
 import { Slider } from '@material-ui/core';
 import NavigateNextIcon from '@material-ui/icons/NavigateNext';
 import NavigateBeforeIcon from '@material-ui/icons/NavigateBefore';
@@ -39,6 +39,10 @@ function Slidebar(props) {
         props.onChange(newVal);
     }
 
+    useEffect(() => {
+        if (props.nextQ > 0) onNext();
+    }, [props.nextQ]);
+
     return (
         <div style={{ display: "flex", justifyContent: "center", alignItems: "center", marginTop: "1rem" }}>
             <button className="nav-btn" onClick={onPrev}><NavigateBeforeIcon /></button>
@@ -52,4 +56,4 @@ function Slidebar(props) {
     )
 }
 
-export default Slidebar
+export default Slidebar;

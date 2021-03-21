@@ -9,9 +9,7 @@ function Content({children, mt=2}) {
                 textAlign: "center",
                 marginTop: mt+"rem",
                 backgroundColor: theme.palette.contentBackground,
-                overflow: "hidden",
-                //paddingLeft: "10%",
-                //paddingRight: "10%",
+                overflow: "auto",
                 maxWidth: "60rem",
                 paddingBottom: "2rem",
             }}>

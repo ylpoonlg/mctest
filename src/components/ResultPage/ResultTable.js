@@ -1,26 +1,29 @@
 import { Table, TableCell, TableContainer, TableHead, TableRow } from '@material-ui/core'
 import React from 'react'
 
+import './result.css';
+
 function ResultTable(props) {
     return (
-        <div>
+        <div style={props.style}>
           <TableContainer>
             <Table id="result-table" className="table"
                 size="small"
             >
               <TableHead>
                 <TableRow>
-                  <TableCell>Score: {props.score}</TableCell>
-                  <TableCell>Total Time: {props.ttime}</TableCell>
+                  <TableCell className="header" colSpan={2}>Score: {props.score}</TableCell>
+                  <TableCell className="header" colSpan={2}>Total Time: {props.ttime}</TableCell>
                 </TableRow>
               </TableHead>
 
               <TableRow>
-                <TableCell>{1}</TableCell>
-                <TableCell>A</TableCell>
-                <TableCell>A</TableCell>
-                <TableCell>00:00:00.00</TableCell>
+                <TableCell style={{width: "20%"}}>Question</TableCell>
+                <TableCell style={{width: "20%"}}>Your Answer</TableCell>
+                <TableCell style={{width: "20%"}}>Correct Answer</TableCell>
+                <TableCell style={{width: "40%"}}>Time Used</TableCell>
               </TableRow>
+
             </Table>
           </TableContainer>
         </div>

@@ -1,5 +1,5 @@
 import { Typography, Grid, makeStyles, Button, IconButton } from '@material-ui/core'
-import { React, useState } from 'react'
+import { React, useRef, useState } from 'react'
 import { useHistory } from 'react-router';
 
 import Content from '../Layout/Content'
@@ -15,6 +15,7 @@ function TestPage() {
     // State
     const [choice, setchoice] = useState("");
     const [curq, setCurq] = useState(JSON.parse(sessionStorage.mc_test_state).curq);
+    const [nextQ, setNextQ] = useState(0);
 
     function onCurQChange(newVal) {
         let qdata = JSON.parse(sessionStorage.mc_qdata);
@@ -27,13 +28,17 @@ function TestPage() {
         console.log("selected "+c);
 
         let qdata = JSON.parse(sessionStorage.mc_qdata);
-        let curq = JSON.parse(sessionStorage.mc_test_state).curq;
+        let testState = JSON.parse(sessionStorage.mc_test_state);
+        let curq = testState.curq;
         if (c === choice) {
             setchoice(" ");
             qdata["q"+curq].ans = "";
         } else {
             setchoice(c);
             qdata["q"+curq].ans = c;
+
+            // auto next q
+            setNextQ(nextQ+1);
         }
 
         sessionStorage.mc_qdata = JSON.stringify(qdata);
@@ -52,7 +57,7 @@ function TestPage() {
         history.replace('/result');
     }
     return (<>
-        <Slidebar onChange={onCurQChange} />
+        <Slidebar nextQ={nextQ} onChange={onCurQChange} />
         <Content mt={0.5}>
             <Timer />
 

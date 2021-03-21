@@ -7,7 +7,9 @@ function ResultPage() {
     return (
         <Content>
             <Typography variant="h4">Result</Typography>
-            <ResultTable score="45/45" ttime="hihihi"/>
+            <ResultTable score="45/45" ttime="00:00:00.00"
+                style={{maxWidth: "70rem", minWidth: "30rem"}}
+            />
         </Content>
     )
 }
