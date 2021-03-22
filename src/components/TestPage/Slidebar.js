@@ -29,7 +29,7 @@ function Slidebar(props) {
             qdata.numq++;
             setnumq(qdata.numq);
             newVal = qdata.numq;
-            qdata["q"+newVal] = {ans: "", time: 0};
+            qdata["q"+newVal] = {ans: "", ms: "", time: 0};
             sessionStorage.mc_qdata = JSON.stringify(qdata);
         }
         let testState = JSON.parse(sessionStorage.mc_test_state);

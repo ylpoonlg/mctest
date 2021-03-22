@@ -9,7 +9,8 @@ import './result.css';
 const styles = makeStyles((theme) => ({
   cell: {
     maxHeight: "1rem",
-    padding: "0 1rem",
+    padding: "0 0.5rem",
+    textAlign: "center",
   }
 }));
 
@@ -17,6 +18,7 @@ function ResultTable(props) {
   const classes = styles();
   const qdata = JSON.parse(sessionStorage.mc_qdata);
   const ttime = qdata.ttime;
+  const testName = qdata.test_name;
   
   // States
   let score = 0;
@@ -52,18 +54,21 @@ function ResultTable(props) {
           >
             <TableHead>
               <TableRow>
+                <TableCell colSpan={4} style={{textAlign: "center"}}>{testName}</TableCell>
+              </TableRow>
+              <TableRow>
                 <TableCell colSpan={2}
-                  style={{fontFamily: "Share Tech Mono, monospace", fontSize: "100%"}}
+                  style={{fontFamily: "Share Tech Mono, monospace", fontSize: "100%", textAlign: "center"}}
                 >Score: {score}/{qdata.numq}</TableCell>
-                <TableCell colSpan={2}>
+                <TableCell colSpan={2} style={{textAlign: "center"}}>
                   <TimeText label="Total Time Used: " time={ttime} dp="true" />
                 </TableCell>
               </TableRow>
               <TableRow>
-                <TableCell style={{width: "25%"}}>Question</TableCell>
-                <TableCell style={{width: "25%"}}>Your Answer</TableCell>
-                <TableCell style={{width: "25%"}}>Correct Answer</TableCell>
-                <TableCell style={{width: "25%"}}>Time Used</TableCell>
+                <TableCell className={classes.cell} style={{width: "25%"}}>Question</TableCell>
+                <TableCell className={classes.cell} style={{width: "25%"}}>Your Answer</TableCell>
+                <TableCell className={classes.cell} style={{width: "25%"}}>Correct Answer</TableCell>
+                <TableCell className={classes.cell} style={{width: "25%"}}>Time Used</TableCell>
               </TableRow>
             </TableHead>
 

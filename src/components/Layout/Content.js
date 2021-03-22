@@ -2,7 +2,7 @@ import { Container, withStyles } from '@material-ui/core'
 import React from 'react'
 import theme from '../../theme/theme'
 
-function Content({children, mt=2}) {
+function Content({children, mt=1, style}) {
     return (
         <Container children={children}
             style={{
@@ -12,6 +12,7 @@ function Content({children, mt=2}) {
                 overflow: "auto",
                 maxWidth: "60rem",
                 paddingBottom: "2rem",
+                ...style,
             }}>
         </Container>
     )

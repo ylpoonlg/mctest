@@ -1,0 +1,43 @@
+/*----------LOGIN----------*/
+#google-signin-btn {
+    background-image: url(./google_logo.svg);
+    background-color: #4285F4;
+    color: #ffffff;
+    font-family: 'Roboto', sans-serif;
+}
+#google-signin-btn:hover {
+    background-color: #1f65d6;
+}
+
+#facebook-signin-btn {
+    background-image: url(./facebook_logo.png);
+    background-color: #1877F2;
+    color: #ffffff;
+    font-family: 'Roboto', sans-serif;
+}
+#facebook-signin-btn:hover {
+    background-color: #1455aa;
+}
+
+#github-signin-btn {
+    background-image: url(./github_logo.png);
+    background-color: #000000;
+    color: #ffffff;
+    font-family: 'Roboto', sans-serif;
+}
+#github-signin-btn:hover {
+    background-color: #2f2f2f;
+}
+
+.signin-btn {
+    width: 240px;
+    height: 36px;
+    padding-left: 36px;
+    background-position: 0px 0px;
+    background-repeat: no-repeat;
+    background-size: auto 100%;
+    cursor: pointer;
+    margin-bottom: 1vh;
+    border: none;
+    border-radius: 2px;
+}
