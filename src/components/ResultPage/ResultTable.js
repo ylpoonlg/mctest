@@ -1,35 +1,48 @@
 import { Table, TableBody, TableCell, TableContainer,
-  TableHead, TableRow, TablePagination } from '@material-ui/core'
+  TableHead, TableRow, TablePagination, makeStyles, Button } from '@material-ui/core'
 import React, { useState } from 'react'
+import colors from '../../theme/colors';
 import TimeText from '../Timer/TimeText';
 
 import './result.css';
 
-function getResult() {
-  let ret = [];
-  let qdata = JSON.parse(sessionStorage.mc_qdata);
-  const numq = qdata.numq;
-
-  for (var i=1; i<=numq; i++) {
-    ret.push({
-      ans: qdata["q"+i].ans,
-      ms: qdata["q"+i].ans,
-      time: qdata["q"+i].time,
-    });
+const styles = makeStyles((theme) => ({
+  cell: {
+    maxHeight: "1rem",
+    padding: "0 1rem",
   }
-
-  return ret;
-}
+}));
 
 function ResultTable(props) {
+  const classes = styles();
   const qdata = JSON.parse(sessionStorage.mc_qdata);
   const ttime = qdata.ttime;
+  
+  // States
+  let score = 0;
+  const [page, setPage] = useState(0);
+  const [RPP, setRPP] = useState(100); // Rows Per Page
+
+  // Get row Data
+  function getResult() {
+    let ret = [];
+    let qdata = JSON.parse(sessionStorage.mc_qdata);
+    let numq = qdata.numq;
+    let scr = 0;
+  
+    for (var i=1; i<=numq; i++) {
+      ret.push({
+        ans: qdata["q"+i].ans,
+        ms: qdata["q"+i].ms,
+        time: qdata["q"+i].time,
+      });
+      scr += (qdata["q"+i].ans === qdata["q"+i].ms) ? 1 : 0;
+    }
+    score = scr;
+    return ret;
+  }
 
   const rows = getResult();
-
-  // States
-  const [page, setPage] = useState(0);
-  const [RPP, setRPP] = useState(100);
 
   return (
       <div style={props.style}>
@@ -41,7 +54,7 @@ function ResultTable(props) {
               <TableRow>
                 <TableCell colSpan={2}
                   style={{fontFamily: "Share Tech Mono, monospace", fontSize: "100%"}}
-                >Score: {props.score}</TableCell>
+                >Score: {score}/{qdata.numq}</TableCell>
                 <TableCell colSpan={2}>
                   <TimeText label="Total Time Used: " time={ttime} dp="true" />
                 </TableCell>
@@ -56,14 +69,22 @@ function ResultTable(props) {
 
             <TableBody>
               {rows.slice(page*RPP, page*RPP+RPP)
-                .map((question, index) => (
+                .map((question, index) => {
+                let ansColor = colors.answer.default;
+                if (question.ms != " " && question.ms) {
+                  ansColor = (question.ans === question.ms)?colors.answer.correct:colors.answer.wrong;
+                }
+                return (
                 <TableRow key={"result-q"+index}>
-                  <TableCell>{index + page*RPP + 1}</TableCell>
-                  <TableCell>{question.ans}</TableCell>
-                  <TableCell>{question.ms}</TableCell>
-                  <TableCell><TimeText dp="true" time={question.time}/></TableCell>
+                  <TableCell className={classes.cell}>{index + page*RPP + 1}</TableCell>
+                  <TableCell className={classes.cell}
+                    style={{ background: ansColor }}
+                  >{question.ans}</TableCell>
+                  <TableCell className={classes.cell}>{question.ms}</TableCell>
+                  <TableCell className={classes.cell}><TimeText dp="true" time={question.time}/></TableCell>
                 </TableRow>
-              ))}
+                )}
+              )}
             </TableBody>
           </Table>
 

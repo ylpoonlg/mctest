@@ -24,6 +24,11 @@ const colors = {
             dark: "#222222",
             light: "#999999"
         },
+    },
+    answer: {
+        default: "rgba(0,0,0,0)",
+        correct: "#a3ffa8",
+        wrong: "#ffb5b5",
     }
 };
 

@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
 import { Switch, Button, Grid, createMuiTheme, makeStyles, TextField, Typography, ThemeProvider, FormGroup, FormControlLabel, useMediaQuery, Collapse } from "@material-ui/core";
 import { useHistory } from "react-router";
-import { IoMdArrowDropdown, IoMdArrowDropup } from 'react-icons/io';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 
 // Components
 import Content from "../Layout/Content";
@@ -48,8 +49,7 @@ function HomePage() {
   const mcSetter = new McSettings();
   
   // States
-  const [settingsDd, setSettingsDd] = useState(mcSetter.getSetting("settings_dd"));
-  const [showDd, setShowDd] = useState(mcSetter.getSetting("settings_dd"));
+  const [settingsSection, setSettingsSection] = useState(mcSetter.getSetting("settingsSection"));
 
   const [numChoice, setnumChoice] = useState(4);
   const [autoNextQ, setAutoNextQ] = useState(mcSetter.getSetting("auto_next_q"));
@@ -73,6 +73,7 @@ function HomePage() {
         ttime: 0,
         q1: {
           ans: "",
+          ms: "",
           time: 0,
         },
       }
@@ -85,17 +86,9 @@ function HomePage() {
 
   const SHOW_SETTINGS_DUR = 200;
   function toggleSettings(e) {
-    const newSettingsDd = !settingsDd;
-    mcSetter.setSettings("settings_dd", newSettingsDd);
-    console.log('settingsDd '+newSettingsDd);
-    if (!newSettingsDd) {
-      setTimeout(() => {
-        setShowDd(newSettingsDd);
-      }, SHOW_SETTINGS_DUR);
-    } else {
-      setShowDd(newSettingsDd);
-    }
-    setSettingsDd(newSettingsDd);
+    const newVal = !settingsSection;
+    mcSetter.setSettings("settingsSection", newVal);
+    setSettingsSection(newVal);
   }
   
   function toggleAutoNextQ(e) {
@@ -120,14 +113,13 @@ function HomePage() {
 
       {/* Settings */}
       <Button onClick={toggleSettings} disableRipple>
-        {settingsDd ? <IoMdArrowDropup /> : <IoMdArrowDropdown />}
+        {settingsSection ? <ExpandLessIcon /> : <ExpandMoreIcon />}
         <Typography variant="h5" style={{paddingLeft: "0.5rem"}}>Settings</Typography>
       </Button>
       <ThemeProvider theme={settingsTheme}>
 
-        <Collapse in={settingsDd} timeout={SHOW_SETTINGS_DUR}>
+        <Collapse in={settingsSection} timeout={150}>
           <div style={{ padding: "1rem",
-            display: showDd ? "block" : "none",
             margin: "auto",
             width: "60%",
             maxWidth: "30rem",

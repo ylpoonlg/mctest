@@ -1,3 +1,15 @@
+#ans-input {
+    padding: 0.5rem;
+    margin: 0;
+    margin-left: 20px; margin-right: 20px;
+    overflow: auto;
+    font-size: 100%;
+    border-radius: 0.25em;
+    border: solid #ddd 2px;
+    text-align: center;
+    resize: none;
+}
+
 #result-table {
     border: solid #eee 2px;
     border-radius: 1.5rem;

@@ -67,17 +67,9 @@ function Navbar() {
 
     const isMobile = useMediaQuery(theme.breakpoints.down('xs'));
     const [toggleMobileMenu, setToggleMobileMenu] = useState(false);
-    const [showMobileMenu, setShowMobileMenu] = useState(false);
 
-    const SHOW_MENU_DUR = 500;
     function mobileMenuClick(e) {
-        const newVal = !toggleMobileMenu;
-        setToggleMobileMenu(newVal);
-        if (!newVal) {
-            setTimeout(() => {
-                setShowMobileMenu(newVal);
-            }, SHOW_MENU_DUR);
-        } else setShowMobileMenu(newVal);
+        setToggleMobileMenu(!toggleMobileMenu);
     }
 
     return (
@@ -115,8 +107,8 @@ function Navbar() {
         <Toolbar></Toolbar>
 
         
-        <Slide in={(toggleMobileMenu && isMobile)} direction="down" timeout={SHOW_MENU_DUR}>
-            <div style={{display: (showMobileMenu && isMobile) || false ? 'block' : 'none'}}>
+        <Collapse in={(toggleMobileMenu && isMobile)} direction="down" timeout={{enter: 400, exit: 200}}>
+            <div>
                 <MobileMenu onClick={mobileMenuClick}
                     newTestClick={newTestClick}
                     loginClick={loginClick}
@@ -124,7 +116,7 @@ function Navbar() {
                     helpClick={helpClick}
                 />
             </div>
-        </Slide>
+        </Collapse>
 
         </>
     );
