@@ -12,10 +12,16 @@ import './test.css';
 function TestPage() {
     const history = useHistory();
 
+    // Init
+    let initCurq = JSON.parse(sessionStorage.mc_test_state).curq;
+    let initQdata = JSON.parse(sessionStorage.mc_qdata);
+    let initChoice = initQdata["q"+initCurq].ans;
+    
     // State
-    const [choice, setchoice] = useState("");
+    const [choice, setchoice] = useState(initChoice);
     const [curq, setCurq] = useState(JSON.parse(sessionStorage.mc_test_state).curq);
     const [nextQ, setNextQ] = useState(0);
+    const [prevQ, setPrevQ] = useState(0);
 
     function onCurQChange(newVal) {
         let qdata = JSON.parse(sessionStorage.mc_qdata);
@@ -44,7 +50,28 @@ function TestPage() {
 
         sessionStorage.mc_qdata = JSON.stringify(qdata);
     }
+
+    document.onkeydown = (e) => {
+        let key = e.key;
+        let upKey = key.toUpperCase();
+        var maxChar = String.fromCharCode(64+JSON.parse(sessionStorage.mc_qdata).numc);
+
+        if (key == "ArrowLeft") {
+            setPrevQ(prevQ+1);
+        } else if (key == "ArrowRight") {
+            setNextQ(nextQ+1);
+        } else if (key.length==1 && (upKey>="A"&&upKey<=maxChar)) {
+            selectChoice(upKey);
+        } else if (key == " ") {
+            selectChoice("");
+        }
+    }
+
+    function finish() {
+        history.replace('/result');
+    }
     
+    // Generate Choice Buttons
     var choiceList = [];
     const numc = JSON.parse(sessionStorage.mc_qdata).numc;
     for (var i=0; i<numc; i++) {
@@ -54,11 +81,8 @@ function TestPage() {
         ));
     }
 
-    function finish() {
-        history.replace('/result');
-    }
     return (<>
-        <Slidebar nextQ={nextQ} onChange={onCurQChange} />
+        <Slidebar prevQ={prevQ} nextQ={nextQ} onChange={onCurQChange} />
         <Content mt={0.5}>
             <Timer />
 

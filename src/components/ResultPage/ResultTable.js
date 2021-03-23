@@ -38,7 +38,8 @@ function ResultTable(props) {
         ms: qdata["q"+i].ms,
         time: qdata["q"+i].time,
       });
-      scr += (qdata["q"+i].ans === qdata["q"+i].ms) ? 1 : 0;
+      if (qdata["q"+i].ans && qdata["q"+i].ans === qdata["q"+i].ms) scr++;
+      else if (qdata["q"+i].ms === "*") scr++;
     }
     score = scr;
     return ret;
@@ -76,7 +77,9 @@ function ResultTable(props) {
               {rows.slice(page*RPP, page*RPP+RPP)
                 .map((question, index) => {
                 let ansColor = colors.answer.default;
-                if (question.ms != " " && question.ms) {
+                if (question.ms === "*") {
+                  ansColor = colors.answer.correct;
+                } else if (question.ms != " " && question.ms) {
                   ansColor = (question.ans === question.ms)?colors.answer.correct:colors.answer.wrong;
                 }
                 return (

@@ -1,22 +1,46 @@
 import { Button, Collapse, makeStyles, TextField, Typography } from '@material-ui/core';
 import React, { useState } from 'react';
+import { useHistory } from 'react-router';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
+import CloudUploadIcon from '@material-ui/icons/CloudUpload';
+import PlayCircleFilledWhiteIcon from '@material-ui/icons/PlayCircleFilledWhite';
 
 import Content from '../Layout/Content';
 import ResultTable from './ResultTable';
 
 import colors from '../../theme/colors';
+import * as db from '../../firebase/db';
 
 const styles = makeStyles((theme) => ({
   sectionBtn: {
-    margin: "0 0.5rem",
+    margin: "0 0.2rem",
     width: "max-content",
   },
   checkBtn: {
     width: "5rem",
     height: "2.5rem",
     margin: "0 0.5rem",
+    color: colors.text.light,
+    background: colors.green.main,
+    "&:hover": {
+      background: colors.green.dark,
+    },
+    "$:active": {
+      background: colors.green.light,
+    }
+  },
+  saveBtn: {
+    background: colors.tertiary.main,
+    color: colors.text.light,
+    "&:hover": {
+      background: colors.tertiary.dark,
+    },
+    "$:active": {
+      background: colors.tertiary.light,
+    }
+  },
+  resumeBtn: {
     background: colors.secondary.main,
     color: colors.text.light,
     "&:hover": {
@@ -30,24 +54,26 @@ const styles = makeStyles((theme) => ({
 
 function ResultPage() {
   const classes = styles();
-
-  let qdata = JSON.parse(sessionStorage.mc_qdata);
-  let numq = qdata.numq;
+  const history = useHistory();
 
   // States
   const [refresh, setRefresh] = useState(0);
   const [ansSection, setAnsSection] = useState(false);
   const [titleSection, setTitleSection] = useState(false);
 
+  // Check Anwers
   function getAns() { // get answer stored in sesssionStorage.mc_qdata
+    let qdata = JSON.parse(sessionStorage.mc_qdata);
+    let numq = qdata.numq;
     let ret = "";
     for (var i=1; i<=numq; i++) {
       ret += qdata["q"+i].ms;
     }
     return ret;
   }
-  
   function checkBtnClick(e) {
+    let qdata = JSON.parse(sessionStorage.mc_qdata);
+    let numq = qdata.numq;
     let val = document.getElementById("ans-input").value;
     console.log("val = "+val);
     let ans = val.replaceAll('\n', '');
@@ -63,7 +89,14 @@ function ResultPage() {
     sessionStorage.mc_qdata = JSON.stringify(qdata);
     setRefresh(refresh+1);
   }
+  document.onkeydown = (e) => {
+    let key = e.key;
+    if (key === "Enter") {
+      checkBtnClick(null);
+    }
+  }
 
+  // Input Answers
   function formatAnsInput(e=null, reset=false) {
     let LIMIT = 10;
     let EXCLUDE = ['\n', '\r'];
@@ -74,7 +107,6 @@ function ResultPage() {
         stripped += val[i];
       }
     }
-
     let numq = JSON.parse(sessionStorage.mc_qdata).numq;
     let newVal = "";
     for (var i=1; i<=Math.min(stripped.length, numq); i++) {
@@ -83,7 +115,6 @@ function ResultPage() {
         newVal += "\n";
       }
     }
-
     if (newVal[newVal.length-1] == '\n') {
       newVal = newVal.substr(0, newVal.length-1);
     }
@@ -93,25 +124,41 @@ function ResultPage() {
     document.getElementById("ans-input").value = newVal;
   }
 
+  // Save
+  function onSave(e) {
+    db.saveTest("mytest-123");
+  }
+
+  // Resume
+  function onResume(e) {
+    resetStates();
+    history.replace("/test");
+  }
+
   return (
     <Content>
       <Typography variant="h4">Result</Typography>
+      {/* Action Buttons */}
       <div style={{display: "flex", flexDirection: "row", justifyContent: "center", alignItems: "start", margin: "0.5rem 0"}}>
         <Button className={classes.sectionBtn}
           onClick={(e) => {setTitleSection(!titleSection)}}
           variant="outlined"
           startIcon={titleSection?<ExpandLessIcon />:<ExpandMoreIcon />}
-        >
-          Title
-        </Button>
+        >Title</Button>
 
         <Button className={classes.sectionBtn}
           onClick={(e) => {setAnsSection(!ansSection)}}
           variant="outlined"
           startIcon={ansSection?<ExpandLessIcon />:<ExpandMoreIcon />}
-        >
-          Answers
-        </Button>
+        >Answers</Button>
+
+        <Button className={classes.sectionBtn+" "+classes.saveBtn}
+          onClick={onSave} variant="contained" startIcon={<CloudUploadIcon />}
+        >Save</Button>
+
+        <Button className={classes.sectionBtn+" "+classes.resumeBtn}
+          onClick={onResume} variant="contained" startIcon={<PlayCircleFilledWhiteIcon />}
+        >Resume</Button>
       </div>
 
       <div>
@@ -146,3 +193,14 @@ function ResultPage() {
 }
 
 export default ResultPage
+
+function resetStates() {
+  let nowtime = Date.now();
+  let testState = {
+      curq: 1,
+      ispaused: false,
+      sttime: nowtime,
+      patime: 0,
+  }
+  sessionStorage.mc_test_state = JSON.stringify(testState);
+}

@@ -43,6 +43,10 @@ function Slidebar(props) {
         if (props.nextQ > 0) onNext();
     }, [props.nextQ]);
 
+    useEffect(() => {
+        if (props.prevQ > 0) onPrev();
+    }, [props.prevQ])
+
     return (
         <div style={{ display: "flex", justifyContent: "center", alignItems: "center", marginTop: "1rem" }}>
             <button className="nav-btn" onClick={onPrev}><NavigateBeforeIcon /></button>

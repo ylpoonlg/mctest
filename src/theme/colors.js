@@ -9,6 +9,21 @@ const colors = {
         dark: "#ff5500",
         light: "#ffaa00",
     },
+    tertiary: {
+        main: "#00b3ff",
+        dark: "#196bc2",
+        light: "#87ebff",
+    },
+    red: {
+        main: "#d60000",
+        dark: "#800a0a",
+        light: "#ffadad",
+    },
+    green: {
+        main: "#00db1a",
+        dark: "#10731f",
+        light: "#73ff88",
+    },
     text: {
         main: "#000000",
         light: "#ffffff",

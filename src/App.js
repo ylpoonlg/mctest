@@ -1,3 +1,4 @@
+import * as firebaseAPI from './firebase/api';
 // Modules
 import React from 'react';
 import { BrowserRouter as Router, Route, useHistory, HashRouter } from 'react-router-dom';
@@ -15,6 +16,7 @@ import HelpPage from './components/HelpPage/HelpPage';
 // Styles
 import './style/style.css'
 import theme from './theme/theme';
+
 
 function App() {
     const history = useHistory();
