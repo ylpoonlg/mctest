@@ -11,6 +11,15 @@
     outline: none;
 }
 
+a.a-btn {
+    color: blue;
+    text-decoration: underline;
+}
+a.a-btn:hover {
+    color: purple;
+    cursor: pointer;
+}
+
 #root {
     min-width: 20rem;
 }

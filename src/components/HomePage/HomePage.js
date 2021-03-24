@@ -6,7 +6,6 @@ import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 
 // Components
 import Content from "../Layout/Content";
-import McSettings from "./settings";
 
 // Styles
 import theme from '../../theme/theme';
@@ -46,13 +45,13 @@ const settingsTheme = createMuiTheme({
 function HomePage() {
   const classes = styles();
   const history = useHistory();
-  const mcSetter = new McSettings();
+  const initSettings = JSON.parse(localStorage.mc_settings);
   
   // States
-  const [settingsSection, setSettingsSection] = useState(mcSetter.getSetting("settingsSection"));
+  const [settingsSection, setSettingsSection] = useState(initSettings.settingsSection);
 
   const [numChoice, setnumChoice] = useState(4);
-  const [autoNextQ, setAutoNextQ] = useState(mcSetter.getSetting("auto_next_q"));
+  const [autoNextQ, setAutoNextQ] = useState(initSettings.auto_next_q);
   const [numcError, setnumcError] = useState(false);
   const isMobile = useMediaQuery(theme.breakpoints.down("xs"));
 
@@ -84,15 +83,21 @@ function HomePage() {
     }
   }
 
-  const SHOW_SETTINGS_DUR = 200;
   function toggleSettings(e) {
     const newVal = !settingsSection;
-    mcSetter.setSettings("settingsSection", newVal);
+
+    const settings = JSON.parse(localStorage.mc_settings);
+    settings.settingsSection = newVal;
+    localStorage.mc_settings = JSON.stringify(settings);
+
     setSettingsSection(newVal);
   }
   
   function toggleAutoNextQ(e) {
-    mcSetter.setSettings("auto_next_q", !autoNextQ);
+    const settings = JSON.parse(localStorage.mc_settings);
+    settings.auto_next_q = !autoNextQ;
+    localStorage.mc_settings = JSON.stringify(settings);
+
 	  setAutoNextQ(!autoNextQ);
   }
 

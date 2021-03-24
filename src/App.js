@@ -17,10 +17,24 @@ import HelpPage from './components/HelpPage/HelpPage';
 import './style/style.css'
 import theme from './theme/theme';
 
+const baseSettings = {
+    settings_dd: false,
+    auto_next_q: true,
+    subjects: ["Math", "Phy", "Chem"],
+    papers: ["DSE", "CE", "AL"],
+}
 
 function App() {
     const history = useHistory();
     // For BrowswerRouter: basename="/mctest-dev"
+    
+    console.log("Checking settings");
+    // Settings
+    if (!localStorage.mc_settings) {
+        console.log("No existing settings");
+        localStorage.mc_settings = JSON.stringify(baseSettings);
+    }
+
     return (
 	<ThemeProvider theme={theme}>
 		<HashRouter history={history} >

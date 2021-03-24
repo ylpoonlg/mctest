@@ -11,6 +11,7 @@ import ResultTable from './ResultTable';
 
 import colors from '../../theme/colors';
 import * as db from '../../firebase/db';
+import TitleInput from './TitleInput';
 
 const styles = makeStyles((theme) => ({
   sectionBtn: {
@@ -60,6 +61,11 @@ function ResultPage() {
   const [refresh, setRefresh] = useState(0);
   const [ansSection, setAnsSection] = useState(false);
   const [titleSection, setTitleSection] = useState(false);
+
+  // Title Input
+  function onTitleUpdate() {
+
+  }
 
   // Check Anwers
   function getAns() { // get answer stored in sesssionStorage.mc_qdata
@@ -164,11 +170,7 @@ function ResultPage() {
       <div>
         {/* title */}
         <Collapse in={titleSection}>
-          <div style={{ display: "flex", justifyContent: "center", alignItems: "center",
-            padding: "1rem 0",
-          }}>
-            //TODO: SELECT TITLE
-          </div>
+          <TitleInput updated={onTitleUpdate} />
         </Collapse>
         
         {/* answer input */}
