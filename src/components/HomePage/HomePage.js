@@ -62,10 +62,11 @@ function HomePage() {
       setnumcError(true);
     } else {
       setnumcError(false);
+      const curDate = new Date();
 
       // Create New Test
       let qdata = {
-        test_name: "test-123",
+        test_name: `Test-${curDate.getFullYear()}${curDate.getMonth()}${curDate.getDate()}`,
         score: 0,
         numq: 1,
         numc: numChoice,

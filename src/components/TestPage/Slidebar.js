@@ -1,4 +1,4 @@
-import { forwardRef, React, useEffect, useState } from 'react';
+import { React, useEffect, useState } from 'react';
 import { Slider } from '@material-ui/core';
 import NavigateNextIcon from '@material-ui/icons/NavigateNext';
 import NavigateBeforeIcon from '@material-ui/icons/NavigateBefore';
@@ -46,6 +46,13 @@ function Slidebar(props) {
     useEffect(() => {
         if (props.prevQ > 0) onPrev();
     }, [props.prevQ])
+
+    useEffect(() => {
+        let qdata = JSON.parse(sessionStorage.mc_qdata);
+        let testState = JSON.parse(sessionStorage.mc_test_state);
+        setnumq(qdata.numq);
+        setcurq(testState.curq);
+    }, [props.refresh]);
 
     return (
         <div style={{ display: "flex", justifyContent: "center", alignItems: "center", marginTop: "1rem" }}>

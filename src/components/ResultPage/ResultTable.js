@@ -1,6 +1,6 @@
 import { Table, TableBody, TableCell, TableContainer,
   TableHead, TableRow, TablePagination, makeStyles, Button } from '@material-ui/core'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import colors from '../../theme/colors';
 import TimeText from '../Timer/TimeText';
 
@@ -24,9 +24,15 @@ function ResultTable(props) {
   let score = 0;
   const [page, setPage] = useState(0);
   const [RPP, setRPP] = useState(100); // Rows Per Page
+  const [rows, setRows] = useState(getResult());
+
+  useEffect(() => {
+    setRows(getResult());
+  }, [props.refresh]);
 
   // Get row Data
   function getResult() {
+    removeUnansweredQ();
     let ret = [];
     let qdata = JSON.parse(sessionStorage.mc_qdata);
     let numq = qdata.numq;
@@ -45,7 +51,33 @@ function ResultTable(props) {
     return ret;
   }
 
-  const rows = getResult();
+  function removeUnansweredQ() {
+    let qdata = JSON.parse(sessionStorage.mc_qdata);
+    let numq = qdata.numq;
+    const MIN_QTIME = 15000;
+    for (var i=numq; i>1; i--) {
+      if (qdata["q"+i].ans == "" && qdata["q"+i].time < MIN_QTIME) {
+        deleteQ(i);
+      } else {
+        break;
+      }
+    }
+  }
+
+  function deleteQ(q) {
+    let qdata = JSON.parse(sessionStorage.mc_qdata);
+    let numq = qdata.numq;
+    if (q < 1 || q > numq) return;
+
+    qdata["ttime"] -= qdata["q"+q]["time"];
+    for (var i=q; i<numq; i++) {
+      qdata["q"+i] = qdata["q"+(i+1)];
+    }
+    delete qdata["q"+numq];
+    qdata["numq"]--;
+    sessionStorage.mc_qdata = JSON.stringify(qdata);
+  }
+
 
   return (
       <div style={props.style}>

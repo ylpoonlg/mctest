@@ -1,6 +1,7 @@
 import { Typography, Grid, makeStyles, Button, IconButton } from '@material-ui/core'
 import { React, useRef, useState } from 'react'
 import { useHistory } from 'react-router';
+import DeleteIcon from '@material-ui/icons/Delete';
 
 import Content from '../Layout/Content'
 import Timer from '../Timer/Timer';
@@ -22,6 +23,7 @@ function TestPage() {
     const [curq, setCurq] = useState(JSON.parse(sessionStorage.mc_test_state).curq);
     const [nextQ, setNextQ] = useState(0);
     const [prevQ, setPrevQ] = useState(0);
+    const [refresh, setRefresh] = useState(0);
 
     function onCurQChange(newVal) {
         let qdata = JSON.parse(sessionStorage.mc_qdata);
@@ -67,6 +69,30 @@ function TestPage() {
         }
     }
 
+    function onDeleteCurQ(e) {
+        let qdata = JSON.parse(sessionStorage.mc_qdata);
+        let testState = JSON.parse(sessionStorage.mc_test_state);
+        let numq = qdata.numq;
+        let curq = testState.curq;
+        if (curq == 1 && numq == 1) return;
+
+        qdata["ttime"] -= qdata["q"+curq]["time"];
+        for (var i=curq; i<numq; i++) {
+        qdata["q"+i] = qdata["q"+(i+1)];
+        }
+        if (curq == numq) {
+            curq--;
+            testState.curq = curq;
+            sessionStorage.mc_test_state = JSON.stringify(testState);
+            //setPrevQ(prevQ+1);
+        }
+        //delete qdata["q"+numq];
+        qdata["numq"]--;
+        sessionStorage.mc_qdata = JSON.stringify(qdata);
+        onCurQChange(curq);
+        setRefresh(refresh+1);
+    }
+
     function finish() {
         history.replace('/result');
     }
@@ -82,12 +108,16 @@ function TestPage() {
     }
 
     return (<>
-        <Slidebar prevQ={prevQ} nextQ={nextQ} onChange={onCurQChange} />
+        <Slidebar refresh={refresh} prevQ={prevQ} nextQ={nextQ} onChange={onCurQChange} />
         <Content mt={0.5}>
             <Timer />
 
             <div id="answer-sheet">
-                <Typography id="curq" variant="h4">Question {curq}</Typography>
+                <div className="row">
+                    <button className="control-btn" onClick={onDeleteCurQ}
+                        style={{marginRight: "0.5rem"}}><DeleteIcon /></button>
+                    <Typography id="curq" variant="h4">Question {curq}</Typography>
+                </div>
                 <Grid className="choices" container justify="space-around" direction="row">
                     {choiceList}
                 </Grid>

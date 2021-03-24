@@ -64,7 +64,8 @@ function ResultPage() {
 
   // Title Input
   function onTitleUpdate() {
-
+    console.log("refresh table");
+    setRefresh(refresh + 1);
   }
 
   // Check Anwers
@@ -170,7 +171,7 @@ function ResultPage() {
       <div>
         {/* title */}
         <Collapse in={titleSection}>
-          <TitleInput updated={onTitleUpdate} />
+          <TitleInput onChange={onTitleUpdate} />
         </Collapse>
         
         {/* answer input */}
@@ -199,7 +200,7 @@ export default ResultPage
 function resetStates() {
   let nowtime = Date.now();
   let testState = {
-      curq: 1,
+      curq: JSON.parse(sessionStorage.mc_qdata).numq,
       ispaused: false,
       sttime: nowtime,
       patime: 0,
