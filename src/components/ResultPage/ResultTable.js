@@ -11,6 +11,7 @@ const styles = makeStyles((theme) => ({
     maxHeight: "1rem",
     padding: "0 0.5rem",
     textAlign: "center",
+    wordWrap: "break-word",
   }
 }));
 

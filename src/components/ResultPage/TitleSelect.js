@@ -1,5 +1,8 @@
-import { Button, Collapse, Fade, makeStyles } from '@material-ui/core';
 import React, { useEffect, useState } from 'react'
+import { Button, Collapse, Fade, makeStyles } from '@material-ui/core';
+import ExpandLessIcon from '@material-ui/icons/ExpandLess';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+
 import colors from '../../theme/colors';
 
 const styles = makeStyles((theme) => ({
@@ -10,8 +13,9 @@ const styles = makeStyles((theme) => ({
     margin: "0 0.1rem",
     background: "#fff",
     "&:hover": {
-      background: "#eee",
+      background: "#fafafa",
       cursor: "pointer",
+      boxShadow: "#ddd 0 0 5px",
     },
     border: "none",
     borderBottom: `solid ${colors.tertiary.main} 3px`,
@@ -36,7 +40,9 @@ function TitleSelect(props) {
   return (
     <div style={{position: "relative", width: "min-content",}}>
       <button className={classes.selectBtn} onClick={() => {setShowDropdown(!showDropdown)}}>
-        {props.title}
+        <div className="row">
+          <span>{props.title}</span>
+        </div>
       </button>
 
       <Fade in={showDropdown}>

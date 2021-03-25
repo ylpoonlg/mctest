@@ -84,7 +84,6 @@ function TestPage() {
             curq--;
             testState.curq = curq;
             sessionStorage.mc_test_state = JSON.stringify(testState);
-            //setPrevQ(prevQ+1);
         }
         //delete qdata["q"+numq];
         qdata["numq"]--;

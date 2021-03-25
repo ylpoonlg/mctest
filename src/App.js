@@ -12,6 +12,8 @@ import ResultPage from './components/ResultPage/ResultPage';
 import LoginPage from './components/LoginPage/LoginPage';
 import AboutPage from './components/AboutPage/AboutPage';
 import HelpPage from './components/HelpPage/HelpPage';
+import UserPage from './components/UserPage/UserPage';
+import MytestsPage from './components/MytestsPage/MytestsPage';
 
 // Styles
 import './style/style.css'
@@ -45,6 +47,8 @@ function App() {
 			<Route path="/login" component={LoginPage}></Route>
             <Route path="/about" component={AboutPage}></Route>
 			<Route path="/help" component={HelpPage}></Route>
+            <Route path="/user" component={UserPage}></Route>
+            <Route path="/mytests" component={MytestsPage}></Route>
 		</HashRouter>
 	</ThemeProvider>
     );

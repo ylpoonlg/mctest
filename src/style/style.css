@@ -12,6 +12,7 @@
 }
 
 a.a-btn {
+    display: block;
     color: blue;
     text-decoration: underline;
 }
@@ -22,6 +23,8 @@ a.a-btn:hover {
 
 .row {
     display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
     justify-content: center;
     align-items: center;
 }

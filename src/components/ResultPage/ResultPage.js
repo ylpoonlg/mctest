@@ -15,7 +15,7 @@ import TitleInput from './TitleInput';
 
 const styles = makeStyles((theme) => ({
   sectionBtn: {
-    margin: "0 0.2rem",
+    margin: "0.5rem 0.2rem",
     width: "max-content",
   },
   checkBtn: {
@@ -146,7 +146,7 @@ function ResultPage() {
     <Content>
       <Typography variant="h4">Result</Typography>
       {/* Action Buttons */}
-      <div style={{display: "flex", flexDirection: "row", justifyContent: "center", alignItems: "start", margin: "0.5rem 0"}}>
+      <div className="row">
         <Button className={classes.sectionBtn}
           onClick={(e) => {setTitleSection(!titleSection)}}
           variant="outlined"
@@ -189,7 +189,7 @@ function ResultPage() {
       </div>
 
       <ResultTable refresh={refresh}
-        style={{maxWidth: "50rem", minWidth: "15rem", margin: "1rem auto",}}
+        style={{maxWidth: "50rem", minWidth: "25rem", margin: "1rem auto",}}
       />
     </Content>
   )
