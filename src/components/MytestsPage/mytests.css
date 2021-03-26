@@ -3,3 +3,13 @@
     border-radius: 1.5rem;
     box-shadow: #ddd 0 0 10px;
 }
+
+a.test-link {
+    display: block;
+    color: #000;
+    text-decoration: underline;
+}
+a.test-link:hover {
+    color: #000099;
+    cursor: pointer;
+}

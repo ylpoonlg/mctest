@@ -39,7 +39,7 @@ function TitleSelect(props) {
 
   return (
     <div style={{position: "relative", width: "min-content",}}>
-      <button className={classes.selectBtn} onClick={() => {setShowDropdown(!showDropdown)}}>
+      <button className={props.btnClass?props.btnClass:classes.selectBtn} onClick={() => {setShowDropdown(!showDropdown)}}>
         <div className="row">
           <span>{props.title}</span>
         </div>
