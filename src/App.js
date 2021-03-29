@@ -19,6 +19,8 @@ import MytestsPage from './components/MytestsPage/MytestsPage';
 import './style/style.css'
 import theme from './theme/theme';
 
+import * as db from './firebase/db';
+
 const baseSettings = {
     settings_dd: false,
     auto_next_q: true,

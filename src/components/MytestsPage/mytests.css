@@ -2,6 +2,7 @@
     border: solid #eee 2px;
     border-radius: 1.5rem;
     box-shadow: #ddd 0 0 10px;
+    min-height: 50vh;
 }
 
 a.test-link {

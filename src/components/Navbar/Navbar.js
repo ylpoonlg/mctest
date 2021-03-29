@@ -1,6 +1,6 @@
 import { React, useState } from 'react'
 import { useHistory } from 'react-router-dom';
-import { Button, AppBar, Toolbar, makeStyles, Typography, useMediaQuery, Collapse, Slide } from '@material-ui/core';
+import { Button, AppBar, Toolbar, makeStyles, Typography, useMediaQuery, Collapse, Slide, Avatar } from '@material-ui/core';
 
 import logo_path from './lg_logo_72.png';
 import { AddBoxOutlined } from '@material-ui/icons';
@@ -9,6 +9,9 @@ import InfoIcon from '@material-ui/icons/Info';
 import HelpIcon from '@material-ui/icons/Help';
 import theme from '../../theme/theme';
 import MobileMenu from './MobileMenu';
+
+import * as auth from '../../firebase/auth';
+import firebase from 'firebase';
 
 const styles = makeStyles((theme) => ({
     logo: {
@@ -47,21 +50,30 @@ function Navbar() {
     const classes = styles();
     const history = useHistory();
 
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [imgURL, setImgURL] = useState("");
+
+    firebase.auth().onAuthStateChanged((user) => {
+        if (user) {
+            setIsLoggedIn(true);
+            setImgURL(user.photoURL);
+        } else {
+            setIsLoggedIn(false);
+            setImgURL("");
+        }
+    })
+
     // Link
     function newTestClick(e) {
-        console.log("new test");
         history.push("/");
     }
     function loginClick(e) {
-        console.log("login");
         history.push("/login");
     }
     function aboutClick(e) {
-        console.log("login");
         history.push("/about");
     }
     function helpClick(e) {
-        console.log("login");
         history.push("/help");
     }
 
@@ -101,7 +113,11 @@ function Navbar() {
                     </> )}
 
                     <div className={classes.spacer}></div>
-                    <Button className={classes.btn_1} variant="contained" color="primary" onClick={loginClick}>Login</Button>
+                    
+                    <Button className={classes.btn_1} variant="contained" color="primary" onClick={loginClick}>
+                        { !isLoggedIn ?
+                        "Login": ( <Avatar src={imgURL} /> )}
+                    </Button>
                 </Toolbar>
         </AppBar>
         <Toolbar></Toolbar>

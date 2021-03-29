@@ -49,6 +49,8 @@ function ResultTable(props) {
       else if (qdata["q"+i].ms === "*") scr++;
     }
     score = scr;
+    qdata.score = scr;
+    sessionStorage.mc_qdata = JSON.stringify(qdata);
     return ret;
   }
 

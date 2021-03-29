@@ -7,7 +7,7 @@ function MytestsPage() {
     return (
         <Content>
             <Typography variant="h4">My Tests</Typography>
-            <MytestsTable style={{marginTop: "1.2rem"}} />
+            <MytestsTable style={{marginTop: "1.2rem", minHeight: "50vh"}} />
         </Content>
     )
 }

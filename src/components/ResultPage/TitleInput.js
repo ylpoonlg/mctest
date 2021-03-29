@@ -86,7 +86,10 @@ function TitleInput(props) {
       let sub = subjects[i];
       items.push((
         <div className={classes.listItem} key={i} onClick={(e) => {onSelect(sub);}}>
-          <span>{subjects[i]}</span>
+          <span style={{
+            display: "inline-block", wordWrap: "break-word",
+            width: "80%",
+          }}>{subjects[i]}</span>
           <button className={[classes.listBtn, classes.delBtn].join(" ")}
             onClick={(e) => {
               e.stopPropagation();

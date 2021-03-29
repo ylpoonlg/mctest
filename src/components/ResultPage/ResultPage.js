@@ -5,6 +5,10 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import PlayCircleFilledWhiteIcon from '@material-ui/icons/PlayCircleFilledWhite';
+import StorageIcon from '@material-ui/icons/Storage';
+import ClipLoader from 'react-spinners/ClipLoader';
+import CheckIcon from '@material-ui/icons/Check';
+import ErrorOutlineIcon from '@material-ui/icons/ErrorOutline';
 
 import Content from '../Layout/Content';
 import ResultTable from './ResultTable';
@@ -51,6 +55,10 @@ const styles = makeStyles((theme) => ({
       background: colors.secondary.light,
     }
   },
+  mytestsBtn: {
+    marginLeft: "0.8rem", background: "none", border: "none",
+    color: "#000", "&:hover": {color: "#999", cursor: "pointer"},
+  }
 }));
 
 function ResultPage() {
@@ -61,6 +69,7 @@ function ResultPage() {
   const [refresh, setRefresh] = useState(0);
   const [ansSection, setAnsSection] = useState(false);
   const [titleSection, setTitleSection] = useState(false);
+  const [saveStatus, setSaveStatus] = useState("normal");
 
   // Title Input
   function onTitleUpdate() {
@@ -133,7 +142,14 @@ function ResultPage() {
 
   // Save
   function onSave(e) {
-    db.saveTest("mytest-123");
+    setSaveStatus("saving")
+    db.saveTest((res) => {
+      if (res) {
+        setSaveStatus("success");
+      } else {
+        setSaveStatus("failed");
+      }
+    });
   }
 
   // Resume
@@ -144,7 +160,17 @@ function ResultPage() {
 
   return (
     <Content>
-      <Typography variant="h4">Result</Typography>
+      <div className="row">
+        <Typography variant="h4">Result</Typography>
+        <button className={classes.mytestsBtn} title="My Tests"
+          onClick={(e) => {
+            history.push("/mytests");
+          }}
+        >
+          <StorageIcon />
+        </button>
+      </div>
+
       {/* Action Buttons */}
       <div className="row">
         <Button className={classes.sectionBtn}
@@ -159,11 +185,15 @@ function ResultPage() {
           startIcon={ansSection?<ExpandLessIcon />:<ExpandMoreIcon />}
         >Answers</Button>
 
-        <Button className={classes.sectionBtn+" "+classes.saveBtn}
-          onClick={onSave} variant="contained" startIcon={<CloudUploadIcon />}
+        <Button className={classes.sectionBtn+" "+classes.saveBtn} title="Save test to cloud"
+          onClick={onSave} variant="contained"
+          startIcon={saveStatus=="normal"?<CloudUploadIcon />:
+          (saveStatus=="saving"?<ClipLoader color="#fff" size={"1rem"} loading={true} />:
+          saveStatus=="success"?<CheckIcon/>:<ErrorOutlineIcon />)
+          }
         >Save</Button>
 
-        <Button className={classes.sectionBtn+" "+classes.resumeBtn}
+        <Button className={classes.sectionBtn+" "+classes.resumeBtn} title="Continue this test"
           onClick={onResume} variant="contained" startIcon={<PlayCircleFilledWhiteIcon />}
         >Resume</Button>
       </div>

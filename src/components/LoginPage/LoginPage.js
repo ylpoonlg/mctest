@@ -7,6 +7,7 @@ import FacebookLogo from './facebook_logo.png';
 import GithubLogo from './github_logo.png';
 
 import * as auth from '../../firebase/auth';
+import firebase from 'firebase';
 
 import '../../style/style.css';
 import './login.css';
@@ -21,8 +22,10 @@ function LoginPage() {
   const classes = styles();
   const history = useHistory();
 
-  auth.getUser(() => {
-    if (!new_sign_in) {
+  console.log("Check login state");
+
+  firebase.auth().onAuthStateChanged(user => {
+    if (user && !new_sign_in) {
       console.log("User has already signed in.");
       afterSignedIn();
     }
@@ -42,6 +45,7 @@ function LoginPage() {
   }
 
   function afterSignedIn() {
+    new_sign_in = false;
     history.replace("/user");
   }
 

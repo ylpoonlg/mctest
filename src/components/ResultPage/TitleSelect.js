@@ -21,10 +21,10 @@ const styles = makeStyles((theme) => ({
     borderBottom: `solid ${colors.tertiary.main} 3px`,
   },
   selectDropdown: {
-    width: "100%", maxHeight: "12rem",
+    width: "100%", maxHeight: "12rem", maxWidth: "100%",
     background: "#fff",
     boxShadow: "#aaa 0 0 5px",
-    zIndex: 100, overflow: "auto",
+    zIndex: 100, overflowY: "auto", overflowX: "hidden",
   },
 }));
 
