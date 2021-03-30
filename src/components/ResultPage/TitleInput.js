@@ -2,14 +2,22 @@ import React, { useState, useEffect } from 'react';
 import { Button, Grid, makeStyles, TextField } from '@material-ui/core';
 import CancelIcon from '@material-ui/icons/Cancel';
 import AddIcon from '@material-ui/icons/Add';
+import DeleteIcon from '@material-ui/icons/Delete';
+import BackspaceIcon from '@material-ui/icons/Backspace';
 
 import TitleSelect from './TitleSelect';
 import colors from '../../theme/colors';
 
 
 const styles = makeStyles((theme) => ({
-  selectBtn: {
-
+  clearBtn: {
+    border: "none",
+    background: "none",
+    marginLeft: "1rem",
+    color: "#555",
+    "&:hover": {
+      color: "#999",
+    }
   },
   listItem: {
     display: "flex",
@@ -241,6 +249,12 @@ function TitleInput(props) {
     props.onChange();
   }, [testName])
 
+  // Clear Title input
+  function clearInput(e) {
+    setTestName("");
+  }
+
+
   // MAIN
   return (
     <div style={{ padding: "1rem 0", }}>
@@ -257,9 +271,14 @@ function TitleInput(props) {
           {yearItems()}
         </TitleSelect>
       </Grid>
-      <TextField value={testName} onChange={(e) => {setTestName(e.target.value)}}
-        placeholder="Title of the Test" variant="standard" style={{marginTop: "0.8rem"}}
-      />
+      <div className="row" style={{marginTop: "0.8rem"}}>
+        <TextField value={testName} onChange={(e) => {setTestName(e.target.value)}}
+          placeholder="Title of the Test" variant="standard"
+        />
+        <button className={classes.clearBtn} onClick={clearInput}>
+          <BackspaceIcon />
+        </button>
+      </div>
     </div>
   )
 }
