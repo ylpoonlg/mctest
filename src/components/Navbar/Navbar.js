@@ -34,6 +34,11 @@ const styles = makeStyles((theme) => ({
         height: "3rem",
         marginLeft: "0.5rem",
         marginRight: "0.5rem",
+        boxShadow: "none",
+        background: "rgba(0,0,0,0)",
+        "&:hover": {
+            background: "rgba(0,0,0,0.2)",
+        }
     },
     btn_r: {
         minWidth: 0,
@@ -43,6 +48,11 @@ const styles = makeStyles((theme) => ({
         padding: 0,
         marginLeft: "0.5rem",
         marginRight: "0.5rem",
+        boxShadow: "none",
+        background: "rgba(0,0,0,0)",
+        "&:hover": {
+            background: "rgba(0,0,0,0.2)",
+        }
     },
 }));
 

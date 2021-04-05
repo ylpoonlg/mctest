@@ -13,11 +13,22 @@ function AboutPage() {
                         MC Test Tool is a tool that helps you record the results of your multiple-choice (MC) tests
                     </p>
                 </div>
+
+                <div className="section">
+                    <h4>Version</h4>
+                    <p>
+                        v2.1.0 (dev)
+                    </p>
+                </div>
+
                 <div className="section">
                     <h4>About Developer</h4>
                     <p>
                         MC Test Tool is developed by ylpoonlg
-                    </p> <br/>
+                        <br/>
+                        Wisdom is given by mokkagod
+                    </p>
+                    <br/>
                     <h5>Bug Report</h5>
                     <p>
                         <a href="https://github.com/ylpoonlg">Github repo</a>

@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Button, Collapse, Fade, makeStyles } from '@material-ui/core';
-import ExpandLessIcon from '@material-ui/icons/ExpandLess';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import { Fade, makeStyles } from '@material-ui/core';
 
 import colors from '../../theme/colors';
 
