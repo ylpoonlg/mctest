@@ -54,6 +54,7 @@ function LoginPage() {
       <Typography variant="h4">Sign In</Typography>
       <div style={{display: "flex", flexDirection: "column", alignItems: "center", margin: "1rem 0"}}>
         <button id="google-signin-btn" className="signin-btn" onClick={googleSignin}>Login with Google</button>
+        <p>Coming soon:</p>
         <button id="facebook-signin-btn" className="signin-btn" onClick={facebookSignin}>Login with Facebook</button>
         <button id="github-signin-btn" className="signin-btn" onClick={githubSignin}>Login with Github</button>
         <a className="a-btn" onClick={(e) => {history.goBack()}} style={{marginTop: "20vh"}}>return</a>

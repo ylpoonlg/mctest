@@ -31,7 +31,7 @@ function AboutPage() {
                     <br/>
                     <h5>Bug Report</h5>
                     <p>
-                        <a href="https://github.com/ylpoonlg">Github repo</a>
+                        <a href="https://github.com/ylpoonlg/mctest">Github repo</a>
                     </p>
                 </div>
             </Container>

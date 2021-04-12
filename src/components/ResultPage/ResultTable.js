@@ -1,10 +1,12 @@
 import { Table, TableBody, TableCell, TableContainer,
-  TableHead, TableRow, TablePagination, makeStyles, Button } from '@material-ui/core'
+  TableHead, TableRow, TablePagination, makeStyles, Button, Typography } from '@material-ui/core'
 import React, { useEffect, useState } from 'react'
 import colors from '../../theme/colors';
 import TimeText from '../Timer/TimeText';
+import SettingsIcon from '@material-ui/icons/Settings';
 
 import './result.css';
+import { useHistory } from 'react-router';
 
 const styles = makeStyles((theme) => ({
   cell: {
@@ -12,11 +14,21 @@ const styles = makeStyles((theme) => ({
     padding: "0 0.5rem",
     textAlign: "center",
     wordWrap: "break-word",
-  }
+  },
+  toolBtn: {
+    float: "right",
+    background: "none",
+    border: "none",
+    color: "#aaa",
+    "&:hover": {
+      color: "#ccc"
+    }
+  },
 }));
 
 function ResultTable(props) {
   const classes = styles();
+  const history = useHistory();
   const qdata = JSON.parse(sessionStorage.mc_qdata);
   const ttime = qdata.ttime;
   const testName = qdata.test_name;
@@ -81,6 +93,9 @@ function ResultTable(props) {
     sessionStorage.mc_qdata = JSON.stringify(qdata);
   }
 
+  function handleSettings(e) {
+    history.push("/settings");
+  }
 
   return (
       <div style={props.style}>
@@ -90,7 +105,12 @@ function ResultTable(props) {
           >
             <TableHead>
               <TableRow>
-                <TableCell colSpan={4} style={{textAlign: "center"}}>{testName}</TableCell>
+                <TableCell colSpan={4} style={{textAlign: "center", position: "relative"}}>
+                  <Typography variant="h5" style={{display: "inline", fontSize: "1.45rem"}}>{testName}</Typography>
+                  <button className={classes.toolBtn} title="Settings" onClick={handleSettings}>
+                    <SettingsIcon />
+                  </button>
+                </TableCell>
               </TableRow>
               <TableRow>
                 <TableCell colSpan={2}
