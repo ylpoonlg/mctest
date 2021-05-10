@@ -145,9 +145,14 @@ function HomePage() {
             </div>
           </div>
         </Collapse>
-        
-
       </ThemeProvider>
+
+
+      <div style={{marginTop: "5rem"}}>
+        <Button variant="outlined" onClick={(e) => {
+          history.push("/comparetests");
+        }}>[beta] Compare</Button>
+      </div>
     </Content>
   );
 }

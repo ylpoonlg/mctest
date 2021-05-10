@@ -15,6 +15,8 @@ import AboutPage from './components/AboutPage/AboutPage';
 import HelpPage from './components/HelpPage/HelpPage';
 import UserPage from './components/UserPage/UserPage';
 import MytestsPage from './components/MytestsPage/MytestsPage';
+import ComparePage from './components/Compare/ComparePage';
+import CompareTests from './components/Compare/CompareTests';
 
 // Styles
 import './style/style.css'
@@ -53,6 +55,8 @@ function App() {
 			<Route path="/help" component={HelpPage}></Route>
             <Route path="/user" component={UserPage}></Route>
             <Route path="/mytests" component={MytestsPage}></Route>
+            <Route path="/compare" component={ComparePage}></Route>
+            <Route path="/comparetests" component={CompareTests}></Route>
 		</HashRouter>
 	</ThemeProvider>
     );
