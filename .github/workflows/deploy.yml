@@ -1,0 +1,21 @@
+name: Deploy to linode ubuntu web
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Test ssh connection
+        uses: appleboy/ssh-action@master
+        with:
+          hosts: 172.104.252.159
+          username: admin
+          key: ${{ secrets.UBWB_PRIVATE }}
+          port: 22
+          script: |
+            cd www/mctest
+            git pull origin master
+            git status
