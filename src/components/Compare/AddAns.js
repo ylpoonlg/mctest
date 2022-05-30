@@ -38,23 +38,20 @@ function AddAns(props) {
             border: "solid #ccc 1px", borderRadius: "2rem", maxWidth: "550px", margin: "1rem auto"
         }}>
 
-            <div>
-                <Input placeholder="Name" style={{marginRight: "1.5rem", marginBottom: "1rem", display: "block"}}
+            <div style={{marginRight: "1.5rem"}}>
+                <Input placeholder="Name" style={{marginBottom: "1rem", display: "block"}}
                     onChange={(e) => {onUpdate(e.target.value, props.ans);}}
                     value={props.name}
                 />
-                <button style={{background: "#ff0000", color: "#fff",
-                    padding: "0.5rem 1rem", border: "none", boxShadow: "none",
-                    borderRadius: "0.5rem"
-                    }}
+                <Button style={{background: "#ff0000", color: "#fff",}} variant="contained"
                     onClick={(e) => {
                         props.onRemove()
                     }}
-                >Remove</button>
+                >Remove</Button>
             </div>
 
             <textarea placeholder="Answer" value={formatAns(stripAns(props.ans))}
-                rows={5} cols={20}
+                rows={3} cols={20}
                 onChange={(e) => {onUpdate(props.name, e.target.value);}}
                 style={{textAlign: "center", padding: "0.5rem"}}
             />

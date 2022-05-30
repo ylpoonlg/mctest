@@ -17,7 +17,7 @@ function AboutPage() {
                 <div className="section">
                     <h4>Version</h4>
                     <p>
-                        v2.1.0 (dev)
+                        v2.2.1 (dev)
                     </p>
                 </div>
 

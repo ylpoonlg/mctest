@@ -1,4 +1,4 @@
-import { makeStyles, Typography } from '@material-ui/core'
+import { Button, makeStyles, Typography } from '@material-ui/core'
 import React, { useState } from 'react'
 import { useHistory } from 'react-router';
 import Content from '../Layout/Content'
@@ -23,7 +23,7 @@ function CompareTests() {
 
   function getTests() {
     let res = [];
-    let tests = JSON.parse(localStorage.mc_compare);
+    let tests = localStorage.mc_compare?JSON.parse(localStorage.mc_compare):{};
 
     for (var i in tests) {
       let j = i;
@@ -31,14 +31,15 @@ function CompareTests() {
         sessionStorage.mc_compareTestAns = JSON.stringify([j, tests[j]]);
         history.push("/compare");
       }} className={[classes.item, "row"].join(" ")} >
-        <h5 style={{width: "10rem"}}>{j}</h5>
-        <button onClick={(e) => {
-          e.stopPropagation();
-          let tmp = JSON.parse(localStorage.mc_compare);
-          delete tmp[j];
-          localStorage.mc_compare = JSON.stringify(tmp);
-          setUpdate(update + 1);
-        }}>Delete</button>
+        <h5 style={{width: "12rem"}}>{j}</h5>
+        <Button style={{background: "#ff0000", color: "#fff",}} variant="contained"
+          onClick={(e) => {
+            e.stopPropagation();
+            let tmp = JSON.parse(localStorage.mc_compare);
+            delete tmp[j];
+            localStorage.mc_compare = JSON.stringify(tmp);
+            setUpdate(update + 1);
+        }}>Delete</Button>
       </div>));
     }
 
@@ -49,8 +50,18 @@ function CompareTests() {
     <Content>
       <Typography variant="h4">Tests</Typography>
 
-      <div style={{marginTop: "2rem"}}>
+      <Typography variant="h5" style={{marginTop: "2rem"}}>Local</Typography>
+
+      <div style={{marginTop: "1rem", marginBottom: "2rem"}}>
         {getTests()}
+      </div>
+      <div>
+        <Button color="secondary" variant="contained" style={{color: "#fff"}}
+          onClick={(e) => {
+            sessionStorage.mc_compareTestAns = JSON.stringify(["", []]);
+            history.push("/compare");
+          }}
+        >New</Button>
       </div>
     </Content>
   )

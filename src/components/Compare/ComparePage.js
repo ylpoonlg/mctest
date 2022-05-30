@@ -1,7 +1,9 @@
 import { Button, Input, makeStyles, Typography } from '@material-ui/core';
 import { React, useEffect, useState } from 'react'
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import Content from '../Layout/Content'
 import AddAns from './AddAns';
+import { useHistory } from 'react-router';
 
 const styles = makeStyles((theme) => ({
   compareTable: {
@@ -39,6 +41,7 @@ const styles = makeStyles((theme) => ({
 
 function ComparePage(props) {
   const classes = styles();
+  const history = useHistory();
 
   const storageData = sessionStorage.mc_compareTestAns;
 
@@ -148,10 +151,17 @@ function ComparePage(props) {
       {ans}
     </tr>));
 
-    // STATISTICS
+    let sortedChoices = [];
     for (var choice in choices) {
+      sortedChoices.push(choice);
+    }
+    sortedChoices.sort()
+
+    // STATISTICS
+    for (let i=0; i<sortedChoices.length; i++) {
+      let choice = sortedChoices[i];
       let stat = [(<td className={classes.tableStat}>{choice}</td>)];
-      for (var q=0; q<numq; q++) {
+      for (let q=0; q<numq; q++) {
         let numa = choiceStat[q][choice];
         let percentage = Math.round(numa/totalAns[q] * 100);
         stat.push((<td key={q} className={numa == probAns[q] ? classes.tableAns : classes.tableStat}>
@@ -190,7 +200,16 @@ function ComparePage(props) {
 
   return (
   <Content>
-    <Typography variant="h4">Compare Result Versions</Typography>
+    <div className="row">
+      <button className="base-btn icon-btn" style={{marginRight: "1rem"}}
+        onClick={(e) => {
+          history.goBack();
+        }}
+      >
+        <ArrowBackIcon />
+      </button>
+      <Typography variant="h4">Compare Result Versions</Typography>
+    </div>
     
     <div>
       <div style={{ marginTop: "1.2rem", marginBottom: "2rem", overflowX: "auto" }}>

@@ -1,6 +1,6 @@
 {
   "name": "mctest",
-  "version": "2.1.0",
+  "version": "2.3.0",
   "private": false,
   "dependencies": {
     "@material-ui/core": "^4.11.3",
@@ -43,5 +43,5 @@
       "last 1 safari version"
     ]
   },
-  "homepage": "http://poonyatlong.com/mctest/"
+  "homepage": "/mctest/"
 }

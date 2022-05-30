@@ -50,3 +50,20 @@ a.a-btn:hover {
     margin: auto;
     text-align: left;
 }
+
+.base-btn {
+    border: none;
+    border-radius: 0;
+    box-shadow: 0;
+    background: none;
+    padding: 0;
+    margin: 0;
+    text-align: center;
+}
+
+.icon-btn {
+    color: #555;
+}
+.icon-btn:hover {
+    color: #999;
+}
