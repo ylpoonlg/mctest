@@ -8,7 +8,7 @@ jobs:
     name: Deploy
     runs-on: ubuntu-latest
     steps:
-      - name: Test ssh connection
+      - name: Pull and deploy
         uses: appleboy/ssh-action@master
         with:
           host: 172.104.252.159
@@ -16,6 +16,6 @@ jobs:
           key: ${{ secrets.UBWB_PRIVATE }}
           port: 22
           script: |
-            cd www/mctest
+            cd Git-Repos/mctest
             git pull origin master
-            git status
+            cp -r build/* ~/www/mctest
